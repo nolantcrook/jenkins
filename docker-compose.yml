@@ -1,7 +1,9 @@
 version: '3.8'
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    build: 
+      context: .
+      dockerfile: Dockerfile
     platform: linux/arm64  # Specific for Apple Silicon
     privileged: true
     user: root
@@ -14,3 +16,5 @@ services:
     environment:
       - TZ=UTC
     restart: unless-stopped 
+
+    
