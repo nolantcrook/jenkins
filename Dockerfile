@@ -26,4 +26,14 @@ RUN curl -L "https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linu
 RUN curl -L "https://github.com/gruntwork-io/terragrunt/releases/download/v0.55.8/terragrunt_linux_arm64" -o /usr/local/bin/terragrunt \
     && chmod +x /usr/local/bin/terragrunt
 
+# Install kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+    && rm kubectl
+
+# Install ArgoCD CLI
+RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 \
+    && install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
+    && rm argocd-linux-amd64
+
 USER jenkins 
